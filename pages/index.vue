@@ -3,7 +3,7 @@
     <div class="column is-three-fourth">
       <div class="main-content">
         <div v-if="story" class="container">
-          <nuxt-link :to="'/'+ story[0]._class.split('.').pop().toLowerCase()+ '/' + story[0].slug">
+          <nuxt-link :to="'/factcheck/' + story[0].slug">
             <div class="columns">
                 <div class= "column is- 6 is-full-mobile">
                     <div class="card">
@@ -11,7 +11,7 @@
                             <figure class ="image is-5by3">
                                 <img src="https://www.publicdomainpictures.net/pictures/200000/nahled/plain-blue-background.jpg" alt="Placeholder image">
                                 <div class="story-art">
-                                  <div v-if="story[0]._class == 'com.factly.dega.domain.Factcheck'" class="fact-strip">
+                                  <div  class="fact-strip">
                                     <h1>FACTCHECK</h1>
                                   </div>
                                 </div>
@@ -38,7 +38,6 @@
           </nuxt-link>
           <hr class="spacer is-1-5 is-hidden-mobile">
           <div class="columns">
-            <!-- MoreStories Section -->
             <div class="column is-12">
               <section>
                 <h3>MORE STORIES</h3>
@@ -47,7 +46,7 @@
                   v-for="(p, index) in story.slice(1)"
                   :key="index"
                   class="container columns">
-                  <nuxt-link :to="'/'+ p._class.split('.').pop().toLowerCase()+ '/' +p.slug">
+                  <nuxt-link :to="'/factcheck/' +p.slug">
                     <MoreStories :story="p" :categories= "true"/>
                   </nuxt-link>
                 </div>
@@ -60,8 +59,8 @@
         </div>
       </div>
     </div>
-    <!-- <PopularArticles></PopularArticles> -->
-  </div>
+    
+  </div> 
 </template>
 <style>
 .home-page{
@@ -114,25 +113,32 @@ export default {
   },
   async asyncData() {
     let posts = await axios
-      .get(`http://127.0.0.1:8000/api/v1/posts/?sortBy=lastUpdatedDate&sortAsc=false`)
+      .get(`http://localhost:8000/api/v1/posts/?sortBy=lastUpdatedDate&sortAsc=false`)
       .then(response => {
         return response.data
       })
       .catch(error => console.log(error))
     let factchecks = await axios
-      .get(`http://127.0.0.1:8000/api/v1/factchecks/?sortBy=lastUpdatedDate&sortAsc=false`)
+      .get(`http://localhost:8000/api/v1/factchecks/?sortBy=lastUpdatedDate&sortAsc=false`)
       .then(response => {
-        return response.data
+        //console.log("response:")
+        //console.log(response.data);
+        //let json = JSON.parse(response.data);
+        return response.data.data
       })
       .catch(error => console.log(error))
-    let stories = null;
-    if(posts && factchecks)
-    {
-      stories =  _.shuffle(posts.concat(factchecks));
-    }
+
+    let stories = [];
+    stories = factchecks;
+    //console.log(stories);
+    // if(posts && factchecks)
+    // {
+    //   stories =  _.shuffle(posts.concat(factchecks));
+    // }
     return {
     story : stories
     }
+    
   }
 }
 </script>

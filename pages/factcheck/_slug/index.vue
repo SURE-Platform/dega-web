@@ -5,16 +5,16 @@
         <div class="column is-four-fifths is-full-mobile" style="float:left;">
           <div class="column is-full has-text-centered">
             <div class="">
-              <h1 class="title is-size-5 is-size-4-tablet is-size-3-desktop is-spaced is-2 has-text-weight-bold">{{factchecks[0].title}}</h1>
+             <!--  <h1 class="title is-size-5 is-size-4-tablet is-size-3-desktop is-spaced is-2 has-text-weight-bold">{{factchecks[0].title}}</h1> -->
               <span class="is-uppercase">
 								<!-- BY -->
-								<div class="has-text-centered">{{getDate(factchecks[0].last_updated_date)}}</div>
+							<!-- 	<div class="has-text-centered">{{getDate(factchecks[0].last_updated_date)}}</div> -->
 							</span>
               <figure class="image is-2by1">
                 <img src="https://2nafqn3o0l6kwfofi3ydj9li-wpengine.netdna-ssl.com/wp-content/uploads/2018/08/deposits-by-Indians-in-Swiss-Banks_featured-image.jpg" style="border-radius: 0px 0px 0px 0px;">
               </figure>
               <br>
-              <p class="subtitle is-size-6 is-size-6-tablet is-size-6-desktop has-text-weight-semibold has-text-left has-text-weight-semibold">{{factchecks[0].excerpt}}</p>
+             <!--  <p class="subtitle is-size-6 is-size-6-tablet is-size-6-desktop has-text-weight-semibold has-text-left has-text-weight-semibold">{{factchecks[0].excerpt}}</p> -->
 
             </div>
           </div>
@@ -30,7 +30,7 @@
                   <p class="subtitle is-size-3 is-size-4-tablet is-size-5-desktop is-size-5-mobile is-spaced is-2">{{claim.claim}}</p>
                 </div>
                 <div class="column is-one-fifth is-hidden-mobile">
-                  <img :src="require('~/assets/images/ratings/'+claim.rating.numeric_value+'.png')">
+                 <!--  <img :src="require('~/assets/images/ratings/'+claim.rating.numeric_value+'.png')"> -->
                 </div>
               </div>
             </div>
@@ -97,7 +97,7 @@
         .get(`http://127.0.0.1:8000/api/v1/factchecks/?slug=${params.params.slug}`)
         .then(response => {
           const data = {
-            factchecks: response.data
+            factchecks: response.data.data
           }
           return data
         })
